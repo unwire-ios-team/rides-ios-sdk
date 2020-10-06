@@ -1,5 +1,13 @@
 # Change Log
 
+## [0.13.0] 2019-11-24
+
+* [Pull #264](https://github.com/uber/rides-ios-sdk/pull/264) iOS 13: Don't check for source application
+
+## [0.12.0] 2019-04-10
+
+* [Pull #257](https://github.com/uber/rides-ios-sdk/pull/257) Added token_type property support to AccessToken model
+
 ## [0.11.0] 2018-10-22
 
 0.11 updates the Uber Rides SDK for Xcode 10/Swift 4.2 compatibility. ([Pull #245](https://github.com/uber/rides-ios-sdk/pull/245), thanks @rmuhamedgaliev!)
