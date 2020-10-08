@@ -1,0 +1,574 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.3 (swiftlang-1200.0.29.2 clang-1200.0.30.1)
+// swift-module-flags: -target arm64-apple-ios9.0 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name UberCore
+import Foundation
+import SafariServices
+import Swift
+import UIKit
+@_exported import UberCore
+import WebKit
+@_inheritsConvenienceInitializers @objc(UBSSORidesNativeAuthenticator) public class RidesNativeAuthenticator : UberCore.BaseAuthenticator {
+  @objc override public init(scopes: [UberCore.UberScope])
+  @objc deinit
+}
+@objc public enum ScopeType : Swift.Int {
+  case general, privileged
+  public typealias RawValue = Swift.Int
+  public init?(rawValue: Swift.Int)
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc public enum UberScopeType : Swift.Int {
+  case allTrips
+  case history
+  case historyLite
+  case places
+  case profile
+  case request
+  case requestReceipt
+  case rideWidgets
+  case custom
+  public typealias RawValue = Swift.Int
+  public init?(rawValue: Swift.Int)
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc(UBSDKScope) public class UberScope : ObjectiveC.NSObject {
+  @objc final public let uberScopeType: UberCore.UberScopeType
+  @objc final public let scopeType: UberCore.ScopeType
+  @objc final public let rawValue: Swift.String
+  @objc public init(uberScopeType: UberCore.UberScopeType)
+  @objc public init(scopeString: Swift.String)
+  @objc override dynamic public func isEqual(_ object: Any?) -> Swift.Bool
+  @objc override dynamic public var hash: Swift.Int {
+    @objc get
+  }
+  @objc public static let allTrips: UberCore.UberScope
+  @objc public static let history: UberCore.UberScope
+  @objc public static let historyLite: UberCore.UberScope
+  @objc public static let places: UberCore.UberScope
+  @objc public static let profile: UberCore.UberScope
+  @objc public static let request: UberCore.UberScope
+  @objc public static let requestReceipt: UberCore.UberScope
+  @objc public static let rideWidgets: UberCore.UberScope
+  @objc deinit
+  @objc override dynamic public init()
+}
+extension String {
+  public func toUberScopesArray() -> [UberCore.UberScope]
+}
+extension Sequence where Self.Element == UberCore.UberScope {
+  public func toUberScopeString() -> Swift.String
+}
+public enum OAuth : UberCore.APIEndpoint {
+  case implicitLogin(clientID: Swift.String, scopes: [UberCore.UberScope], redirect: Foundation.URL)
+  case authorizationCodeLogin(clientID: Swift.String, redirect: Foundation.URL, scopes: [UberCore.UberScope], state: Swift.String?)
+  case refresh(clientID: Swift.String, refreshToken: Swift.String)
+  public var method: UberCore.UberHTTPMethod {
+    get
+  }
+  public var host: Swift.String {
+    get
+  }
+  public var body: Foundation.Data? {
+    get
+  }
+  public var path: Swift.String {
+    get
+  }
+  public var query: [Foundation.URLQueryItem] {
+    get
+  }
+}
+@_inheritsConvenienceInitializers @objc open class UberButton : UIKit.UIButton {
+  final public let cornerRadius: CoreGraphics.CGFloat
+  final public let horizontalEdgePadding: CoreGraphics.CGFloat
+  final public let imageLabelPadding: CoreGraphics.CGFloat
+  final public let verticalPadding: CoreGraphics.CGFloat
+  final public let uberImageView: UIKit.UIImageView
+  final public let uberTitleLabel: UIKit.UILabel
+  @objc public var colorStyle: UberCore.UberButtonColorStyle {
+    @objc get
+    @objc set
+  }
+  @objc override dynamic open var isHighlighted: Swift.Bool {
+    @objc get
+    @objc set
+  }
+  @objc override dynamic public init(frame: CoreGraphics.CGRect)
+  @objc required dynamic public init?(coder aDecoder: Foundation.NSCoder)
+  @objc open func setup()
+  @objc open func addSubviews()
+  @objc open func setContent()
+  @objc open func setConstraints()
+  @objc override dynamic open func sizeThatFits(_ size: CoreGraphics.CGSize) -> CoreGraphics.CGSize
+  open func colorStyleDidUpdate(_ style: UberCore.UberButtonColorStyle)
+  @objc deinit
+}
+@objc public enum UberButtonColor : Swift.Int {
+  case uberBlack
+  case uberWhite
+  case blackHighlighted
+  case whiteHighlighted
+  public typealias RawValue = Swift.Int
+  public init?(rawValue: Swift.Int)
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc public enum UberButtonColorStyle : Swift.Int {
+  case black
+  case white
+  public typealias RawValue = Swift.Int
+  public init?(rawValue: Swift.Int)
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@_hasMissingDesignatedInitializers public class ColorUtil {
+  public static func colorForUberButtonColor(_ color: UberCore.UberButtonColor) -> UIKit.UIColor
+  @objc deinit
+}
+@objc(UBSDKBaseAuthenticator) public class BaseAuthenticator : ObjectiveC.NSObject {
+  @objc public var scopes: [UberCore.UberScope]
+  @objc public init(scopes: [UberCore.UberScope])
+  @objc public func consumeResponse(url: Foundation.URL, completion: UberCore.AuthenticationCompletionHandler?)
+  @objc override dynamic public init()
+  @objc deinit
+}
+public typealias DeeplinkCompletionHandler = (Foundation.NSError?) -> Swift.Void
+@objc(UBSDKDeeplinking) public protocol Deeplinking {
+  @objc var url: Foundation.URL { get }
+  @objc var fallbackURLs: [Foundation.URL] { get }
+  @objc func execute(completion: UberCore.DeeplinkCompletionHandler?)
+}
+@_inheritsConvenienceInitializers @objc(UBSDKAppDelegate) public class UberAppDelegate : ObjectiveC.NSObject {
+  @objc public static let shared: UberCore.UberAppDelegate
+  @objc public var loginManager: UberCore.LoginManaging?
+  @objc override dynamic public init()
+  @objc deinit
+  @objc public func application(_ application: UIKit.UIApplication, open url: Foundation.URL, sourceApplication: Swift.String?, annotation: Any?) -> Swift.Bool
+  @objc public func application(_ application: UIKit.UIApplication, didFinishLaunchingWithOptions launchOptions: [UIKit.UIApplication.LaunchOptionsKey : Any]? = nil) -> Swift.Bool
+}
+@_inheritsConvenienceInitializers @objc(UBSDKTokenManager) public class TokenManager : ObjectiveC.NSObject {
+  @objc public static let tokenManagerDidSaveTokenNotification: Swift.String
+  @objc public static let tokenManagerDidDeleteTokenNotification: Swift.String
+  @objc public static func fetchToken(identifier: Swift.String, accessGroup: Swift.String) -> UberCore.AccessToken?
+  @objc public static func fetchToken(identifier: Swift.String) -> UberCore.AccessToken?
+  @objc public static func fetchToken() -> UberCore.AccessToken?
+  @discardableResult
+  @objc public static func save(accessToken: UberCore.AccessToken, tokenIdentifier: Swift.String, accessGroup: Swift.String) -> Swift.Bool
+  @discardableResult
+  @objc public static func save(accessToken: UberCore.AccessToken, tokenIdentifier: Swift.String) -> Swift.Bool
+  @discardableResult
+  @objc public static func save(accessToken: UberCore.AccessToken) -> Swift.Bool
+  @discardableResult
+  @objc public static func deleteToken(identifier: Swift.String, accessGroup: Swift.String) -> Swift.Bool
+  @discardableResult
+  @objc public static func deleteToken(identifier: Swift.String) -> Swift.Bool
+  @discardableResult
+  @objc public static func deleteToken() -> Swift.Bool
+  @objc deinit
+  @objc override dynamic public init()
+}
+extension JSONDecoder {
+  public static var uberDecoder: Foundation.JSONDecoder {
+    get
+  }
+}
+@objc public enum LoginButtonState : Swift.Int {
+  case signedIn
+  case signedOut
+  public typealias RawValue = Swift.Int
+  public init?(rawValue: Swift.Int)
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc(UBSDKLoginButtonDelegate) public protocol LoginButtonDelegate {
+  @objc func loginButton(_ button: UberCore.LoginButton, didLogoutWithSuccess success: Swift.Bool)
+  @objc func loginButton(_ button: UberCore.LoginButton, didCompleteLoginWithToken accessToken: UberCore.AccessToken?, error: Foundation.NSError?)
+}
+@objc(UBSDKLoginButton) public class LoginButton : UberCore.UberButton {
+  @objc weak public var delegate: UberCore.LoginButtonDelegate?
+  @objc public var loginManager: UberCore.LoginManager {
+    @objc get
+    @objc set
+  }
+  @objc public var scopes: [UberCore.UberScope]
+  @objc public var presentingViewController: UIKit.UIViewController?
+  @objc public var buttonState: UberCore.LoginButtonState {
+    @objc get
+  }
+  @objc public init(frame: CoreGraphics.CGRect, scopes: [UberCore.UberScope], loginManager: UberCore.LoginManager)
+  @objc required dynamic public init?(coder aDecoder: Foundation.NSCoder)
+  @objc deinit
+  @objc override public func setup()
+  @objc override public func setContent()
+  @objc override public func setConstraints()
+  @objc override dynamic public func sizeThatFits(_ size: CoreGraphics.CGSize) -> CoreGraphics.CGSize
+  @objc override dynamic public func updateConstraints()
+  @objc override dynamic public init(frame: CoreGraphics.CGRect)
+}
+public protocol APIEndpoint {
+  var body: Foundation.Data? { get }
+  var headers: [Swift.String : Swift.String]? { get }
+  var host: Swift.String { get }
+  var method: UberCore.UberHTTPMethod { get }
+  var path: Swift.String { get }
+  var query: [Foundation.URLQueryItem] { get }
+}
+extension APIEndpoint {
+  public var body: Foundation.Data? {
+    get
+  }
+  public var headers: [Swift.String : Swift.String]? {
+    get
+  }
+  public var host: Swift.String {
+    get
+  }
+  public var url: Foundation.URL {
+    get
+  }
+  public func queryBuilder(_ queries: (name: Swift.String, value: Swift.String)...) -> [Foundation.URLQueryItem]
+}
+public enum UberHTTPMethod : Swift.String {
+  case get
+  case post
+  case put
+  case patch
+  case delete
+  public typealias RawValue = Swift.String
+  public init?(rawValue: Swift.String)
+  public var rawValue: Swift.String {
+    get
+  }
+}
+public typealias AuthenticationCompletionHandler = (UberCore.AccessToken?, Foundation.NSError?) -> Swift.Void
+@objc(UBSDKCallbackURIType) public enum CallbackURIType : Swift.Int {
+  case authorizationCode
+  case general
+  case implicit
+  case native
+  public typealias RawValue = Swift.Int
+  public init?(rawValue: Swift.Int)
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@_inheritsConvenienceInitializers @objc(UBSDKConfiguration) public class Configuration : ObjectiveC.NSObject {
+  @objc public static var shared: UberCore.Configuration
+  @objc public static var plistName: Swift.String
+  @objc public static var bundle: Foundation.Bundle
+  @objc public var processPool: WebKit.WKProcessPool
+  @objc public var clientID: Swift.String
+  @objc public var appDisplayName: Swift.String
+  @objc public var serverToken: Swift.String?
+  @objc public var defaultKeychainAccessGroup: Swift.String
+  @objc public var defaultAccessTokenIdentifier: Swift.String
+  @objc public var isSandbox: Swift.Bool
+  @objc public var useFallback: Swift.Bool
+  @objc public var alwaysUseAuthCodeFallback: Swift.Bool
+  @objc override dynamic public init()
+  @objc public var sdkVersion: Swift.String {
+    @objc get
+  }
+  @objc public static func restoreDefaults()
+  @objc public func getCallbackURI() -> Foundation.URL
+  @objc public func getCallbackURIString() -> Swift.String
+  @objc public func getCallbackURI(for type: UberCore.CallbackURIType) -> Foundation.URL
+  @objc public func getCallbackURIString(for type: UberCore.CallbackURIType) -> Swift.String
+  @objc public func setCallbackURI(_ callbackURI: Foundation.URL?)
+  @objc public func setCallbackURI(_ callbackURI: Foundation.URL?, type: UberCore.CallbackURIType)
+  public func resetProcessPool()
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @objc(UBSSOEatsNativeAuthenticator) public class EatsNativeAuthenticator : UberCore.BaseAuthenticator {
+  @objc override public init(scopes: [UberCore.UberScope])
+  @objc deinit
+}
+@objc(UBSDKBaseDeeplink) open class BaseDeeplink : ObjectiveC.NSObject, UberCore.Deeplinking {
+  @objc public var url: Foundation.URL
+  @objc open var fallbackURLs: [Foundation.URL] {
+    @objc get
+  }
+  @objc public init?(scheme: Swift.String, host: Swift.String, path: Swift.String, queryItems: [Foundation.URLQueryItem]?)
+  @objc public func execute(completion: UberCore.DeeplinkCompletionHandler? = nil)
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc(UBSDKDeeplinkFallbackType) public enum DeeplinkFallbackType : Swift.Int {
+  case mobileWeb
+  case appStore
+  case none
+  public typealias RawValue = Swift.Int
+  public init?(rawValue: Swift.Int)
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc(UBSDKError) public class UberError : ObjectiveC.NSObject, Swift.Decodable {
+  @objc public var status: Swift.Int {
+    get
+  }
+  @objc public var title: Swift.String? {
+    get
+  }
+  @objc public var code: Swift.String? {
+    get
+  }
+  @objc public var meta: [Swift.String : Any]? {
+    get
+  }
+  @objc public var errors: [UberCore.UberError]? {
+    get
+  }
+  @objc public init(status: Swift.Int, code: Swift.String?, title: Swift.String?)
+  required public init(from decoder: Swift.Decoder) throws
+  @objc deinit
+  @objc override dynamic public init()
+}
+@_inheritsConvenienceInitializers @objc(UBSDKClientError) public class UberClientError : UberCore.UberError {
+  required public init(from decoder: Swift.Decoder) throws
+  @objc override public init(status: Swift.Int, code: Swift.String?, title: Swift.String?)
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @objc(UBSDKServerError) public class UberServerError : UberCore.UberError {
+  required public init(from decoder: Swift.Decoder) throws
+  @objc override public init(status: Swift.Int, code: Swift.String?, title: Swift.String?)
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @objc(UBSDKUnknownError) public class UberUnknownError : UberCore.UberError {
+  required public init(from decoder: Swift.Decoder) throws
+  @objc override public init(status: Swift.Int, code: Swift.String?, title: Swift.String?)
+  @objc deinit
+}
+@objc(UBSDKAuthenticationErrorType) public enum UberAuthenticationErrorType : Swift.Int {
+  case accessDenied
+  case expiredJWT
+  case generalError
+  case internalServerError
+  case invalidAppSignature
+  case invalidAuthCode
+  case invalidClientID
+  case invalidFlowError
+  case invalidJWT
+  case invalidJWTSignature
+  case invalidNonce
+  case invalidRedirect
+  case invalidRefreshToken
+  case invalidRequest
+  case invalidResponse
+  case invalidScope
+  case invalidSSOResponse
+  case invalidUserID
+  case malformedRequest
+  case mismatchingRedirect
+  case networkError
+  case serverError
+  case unableToPresentLogin
+  case unableToSaveAccessToken
+  case unavailable
+  case userCancelled
+  public typealias RawValue = Swift.Int
+  public init?(rawValue: Swift.Int)
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@_hasMissingDesignatedInitializers public class UberAuthenticationErrorFactory {
+  public static func errorForType(ridesAuthenticationErrorType: UberCore.UberAuthenticationErrorType) -> Foundation.NSError
+  public static func createRidesAuthenticationError(rawValue: Swift.String) -> Foundation.NSError?
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @objc(UBSDKImplicitGrantAuthenticator) public class ImplicitGrantAuthenticator : UberCore.BaseAuthenticator {
+  @objc deinit
+  @objc override public init(scopes: [UberCore.UberScope])
+}
+@_inheritsConvenienceInitializers @objc(UBSDKAuthorizationCodeGrantAuthenticator) public class AuthorizationCodeGrantAuthenticator : UberCore.BaseAuthenticator {
+  @objc public var state: Swift.String?
+  @objc deinit
+  @objc override public init(scopes: [UberCore.UberScope])
+}
+@objc(UBSDKEatsAppStoreDeeplink) public class EatsAppStoreDeeplink : UberCore.BaseDeeplink {
+  @objc public init(userAgent: Swift.String?)
+  @objc deinit
+  @objc override public init?(scheme: Swift.String, host: Swift.String, path: Swift.String, queryItems: [Foundation.URLQueryItem]?)
+}
+@objc(UBSDKRidesAuthenticationDeeplink) public class RidesAuthenticationDeeplink : UberCore.BaseDeeplink {
+  @objc public init(scopes: [UberCore.UberScope])
+  @objc override public init?(scheme: Swift.String, host: Swift.String, path: Swift.String, queryItems: [Foundation.URLQueryItem]?)
+  @objc deinit
+}
+@objc(UBSDKResponse) public class Response : ObjectiveC.NSObject {
+  @objc public var data: Foundation.Data?
+  @objc public var statusCode: Swift.Int
+  @objc public var response: Foundation.HTTPURLResponse?
+  @objc public var error: UberCore.UberError?
+  @objc public init(data: Foundation.Data?, statusCode: Swift.Int, response: Foundation.HTTPURLResponse?, error: UberCore.UberError?)
+  @objc deinit
+  @objc override dynamic public init()
+}
+public class Request {
+  public var urlRequest: Foundation.URLRequest {
+    get
+  }
+  public init?(session: Foundation.URLSession?, endpoint: UberCore.APIEndpoint, serverToken: Swift.String? = nil, bearerToken: Swift.String? = nil)
+  public func prepare()
+  public func execute(_ completion: @escaping (UberCore.Response) -> Swift.Void)
+  public func cancelTasks()
+  @objc deinit
+}
+@objc(UBSDKEatsAuthenticationDeeplink) public class EatsAuthenticationDeeplink : UberCore.BaseDeeplink {
+  @objc public init(scopes: [UberCore.UberScope])
+  @objc override public init?(scheme: Swift.String, host: Swift.String, path: Swift.String, queryItems: [Foundation.URLQueryItem]?)
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @objc(UBSDKLoginManager) public class LoginManager : ObjectiveC.NSObject, UberCore.LoginManaging {
+  public var accessTokenIdentifier: Swift.String {
+    get
+  }
+  public var keychainAccessGroup: Swift.String {
+    get
+  }
+  public var loginType: UberCore.LoginType {
+    get
+  }
+  public var productFlowPriority: [UberCore.UberAuthenticationProductFlow] {
+    get
+  }
+  @objc public init(accessTokenIdentifier: Swift.String, keychainAccessGroup: Swift.String?, loginType: UberCore.LoginType, productFlowPriority: [UberCore.UberAuthenticationProductFlow])
+  @objc convenience public init(accessTokenIdentifier: Swift.String, keychainAccessGroup: Swift.String?, loginType: UberCore.LoginType)
+  @objc convenience public init(accessTokenIdentifier: Swift.String, keychainAccessGroup: Swift.String?, productFlowPriority: [UberCore.UberAuthenticationProductFlow])
+  @objc convenience public init(accessTokenIdentifier: Swift.String, keychainAccessGroup: Swift.String?)
+  @objc convenience public init(accessTokenIdentifier: Swift.String, productFlowPriority: [UberCore.UberAuthenticationProductFlow])
+  @objc convenience public init(accessTokenIdentifier: Swift.String)
+  @objc convenience public init(loginType: UberCore.LoginType, productFlowPriority: [UberCore.UberAuthenticationProductFlow])
+  @objc convenience public init(loginType: UberCore.LoginType)
+  @objc convenience public init(productFlowPriority: [UberCore.UberAuthenticationProductFlow])
+  @objc convenience override dynamic public init()
+  @objc public func login(requestedScopes scopes: [UberCore.UberScope], presentingViewController: UIKit.UIViewController? = nil, completion: UberCore.AuthenticationCompletionHandler? = nil)
+  @objc public func application(_ application: UIKit.UIApplication, open url: Foundation.URL, sourceApplication: Swift.String?, annotation: Any?) -> Swift.Bool
+  @available(iOS 9.0, *)
+  @objc public func application(_ app: UIKit.UIApplication, open url: Foundation.URL, options: [UIKit.UIApplication.OpenURLOptionsKey : Any]) -> Swift.Bool
+  @objc public func applicationWillEnterForeground()
+  @objc public func applicationDidBecomeActive()
+  @objc deinit
+}
+@objc(UBSDKDeeplinkErrorType) public enum DeeplinkErrorType : Swift.Int {
+  case deeplinkNotFollowed
+  case unableToFollow
+  case unableToOpen
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+  public init?(rawValue: Swift.Int)
+}
+@objc(UBSDKLoginType) public enum LoginType : Swift.Int {
+  case authorizationCode
+  case implicit
+  case native
+  public typealias RawValue = Swift.Int
+  public init?(rawValue: Swift.Int)
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc public protocol LoginManaging {
+  @objc func login(requestedScopes scopes: [UberCore.UberScope], presentingViewController: UIKit.UIViewController?, completion: ((UberCore.AccessToken?, Foundation.NSError?) -> Swift.Void)?)
+  @objc func application(_ application: UIKit.UIApplication, open url: Foundation.URL, sourceApplication: Swift.String?, annotation: Any?) -> Swift.Bool
+  @objc @available(iOS 9.0, *)
+  func application(_ app: UIKit.UIApplication, open url: Foundation.URL, options: [UIKit.UIApplication.OpenURLOptionsKey : Any]) -> Swift.Bool
+  @objc func applicationWillEnterForeground()
+  @objc func applicationDidBecomeActive()
+}
+@objc public enum UberProductType : Swift.Int {
+  case rides
+  case eats
+  public typealias RawValue = Swift.Int
+  public init?(rawValue: Swift.Int)
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc(UBSDKUberAuthenticationProductFlow) open class UberAuthenticationProductFlow : ObjectiveC.NSObject {
+  @objc final public let uberProductType: UberCore.UberProductType
+  @objc public init(_ uberProductType: UberCore.UberProductType)
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc(UBSDKRidesAppStoreDeeplink) public class RidesAppStoreDeeplink : UberCore.BaseDeeplink {
+  @objc public init(userAgent: Swift.String?)
+  @objc override public init?(scheme: Swift.String, host: Swift.String, path: Swift.String, queryItems: [Foundation.URLQueryItem]?)
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @objc(UBSDKAccessTokenFactory) public class AccessTokenFactory : ObjectiveC.NSObject {
+  public static func createAccessToken(fromRedirectURL redirectURL: Foundation.URL) throws -> UberCore.AccessToken
+  public static func createAccessToken(fromJSONData jsonData: Foundation.Data) throws -> UberCore.AccessToken
+  @objc deinit
+  @objc override dynamic public init()
+}
+@objc(UBSDKAccessToken) public class AccessToken : ObjectiveC.NSObject, Foundation.NSCoding {
+  @objc public var tokenString: Swift.String {
+    get
+  }
+  @objc public var refreshToken: Swift.String? {
+    get
+  }
+  @objc public var tokenType: Swift.String? {
+    get
+  }
+  @objc public var expirationDate: Foundation.Date? {
+    get
+  }
+  @objc public var grantedScopes: [UberCore.UberScope] {
+    get
+  }
+  @objc public init(tokenString: Swift.String)
+  @objc public init(tokenString: Swift.String, refreshToken: Swift.String?, tokenType: Swift.String?, expirationDate: Foundation.Date?, grantedScopes: [UberCore.UberScope])
+  @objc public init?(oauthDictionary: [Swift.String : Any])
+  @objc required public init?(coder decoder: Foundation.NSCoder)
+  @objc public func encode(with coder: Foundation.NSCoder)
+  @objc override dynamic public init()
+  @objc deinit
+}
+extension UberCore.ScopeType : Swift.Equatable {}
+extension UberCore.ScopeType : Swift.Hashable {}
+extension UberCore.ScopeType : Swift.RawRepresentable {}
+extension UberCore.UberScopeType : Swift.Equatable {}
+extension UberCore.UberScopeType : Swift.Hashable {}
+extension UberCore.UberScopeType : Swift.RawRepresentable {}
+extension UberCore.UberButtonColor : Swift.Equatable {}
+extension UberCore.UberButtonColor : Swift.Hashable {}
+extension UberCore.UberButtonColor : Swift.RawRepresentable {}
+extension UberCore.UberButtonColorStyle : Swift.Equatable {}
+extension UberCore.UberButtonColorStyle : Swift.Hashable {}
+extension UberCore.UberButtonColorStyle : Swift.RawRepresentable {}
+extension UberCore.LoginButtonState : Swift.Equatable {}
+extension UberCore.LoginButtonState : Swift.Hashable {}
+extension UberCore.LoginButtonState : Swift.RawRepresentable {}
+extension UberCore.UberHTTPMethod : Swift.Equatable {}
+extension UberCore.UberHTTPMethod : Swift.Hashable {}
+extension UberCore.UberHTTPMethod : Swift.RawRepresentable {}
+extension UberCore.CallbackURIType : Swift.Equatable {}
+extension UberCore.CallbackURIType : Swift.Hashable {}
+extension UberCore.CallbackURIType : Swift.RawRepresentable {}
+extension UberCore.DeeplinkFallbackType : Swift.Equatable {}
+extension UberCore.DeeplinkFallbackType : Swift.Hashable {}
+extension UberCore.DeeplinkFallbackType : Swift.RawRepresentable {}
+extension UberCore.UberAuthenticationErrorType : Swift.Equatable {}
+extension UberCore.UberAuthenticationErrorType : Swift.Hashable {}
+extension UberCore.UberAuthenticationErrorType : Swift.RawRepresentable {}
+extension UberCore.DeeplinkErrorType : Swift.Equatable {}
+extension UberCore.DeeplinkErrorType : Swift.Hashable {}
+extension UberCore.DeeplinkErrorType : Swift.RawRepresentable {}
+extension UberCore.LoginType : Swift.Equatable {}
+extension UberCore.LoginType : Swift.Hashable {}
+extension UberCore.LoginType : Swift.RawRepresentable {}
+extension UberCore.UberProductType : Swift.Equatable {}
+extension UberCore.UberProductType : Swift.Hashable {}
+extension UberCore.UberProductType : Swift.RawRepresentable {}

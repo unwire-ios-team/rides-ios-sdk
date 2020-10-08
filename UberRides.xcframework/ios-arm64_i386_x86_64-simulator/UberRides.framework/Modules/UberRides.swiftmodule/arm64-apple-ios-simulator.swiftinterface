@@ -1,0 +1,894 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.3 (swiftlang-1200.0.29.2 clang-1200.0.30.1)
+// swift-module-flags: -target arm64-apple-ios9.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name UberRides
+import CoreLocation
+import Foundation
+import MapKit
+import Swift
+import UIKit
+import UberCore
+@_exported import UberRides
+import WebKit
+@objc(UBSDKPriceEstimate) public class PriceEstimate : ObjectiveC.NSObject, Swift.Codable {
+  @objc public var currencyCode: Swift.String? {
+    get
+  }
+  @nonobjc public var distance: Swift.Double? {
+    get
+  }
+  @objc(distance) public var objc_distance: Foundation.NSNumber? {
+    @objc get
+  }
+  @nonobjc public var duration: Swift.Int? {
+    get
+  }
+  @objc(duration) public var objc_duration: Foundation.NSNumber? {
+    @objc get
+  }
+  @objc public var estimate: Swift.String? {
+    get
+  }
+  @nonobjc public var highEstimate: Swift.Int? {
+    get
+  }
+  @objc(highEstimate) public var objc_highEstimate: Foundation.NSNumber? {
+    @objc get
+  }
+  @nonobjc public var lowEstimate: Swift.Int? {
+    get
+  }
+  @objc(lowEstimate) public var objc_lowEstimate: Foundation.NSNumber? {
+    @objc get
+  }
+  @objc public var name: Swift.String? {
+    get
+  }
+  @objc public var productID: Swift.String? {
+    get
+  }
+  @objc public var surgeConfirmationID: Swift.String? {
+    get
+  }
+  @objc public var surgeConfirmationURL: Foundation.URL? {
+    get
+  }
+  @nonobjc public var surgeMultiplier: Swift.Double? {
+    get
+  }
+  @objc(surgeMultiplier) public var objc_surgeMultiplier: Foundation.NSNumber? {
+    @objc get
+  }
+  required public init(from decoder: Swift.Decoder) throws
+  @objc deinit
+  @objc override dynamic public init()
+  public func encode(to encoder: Swift.Encoder) throws
+}
+@objc(UBSDKTripHistory) public class TripHistory : ObjectiveC.NSObject, Swift.Decodable {
+  @objc public var offset: Swift.Int {
+    get
+  }
+  @objc public var limit: Swift.Int {
+    get
+  }
+  @objc public var count: Swift.Int {
+    get
+  }
+  @objc public var history: [UberRides.UserActivity] {
+    get
+  }
+  required public init(from decoder: Swift.Decoder) throws
+  @objc deinit
+  @objc override dynamic public init()
+}
+@objc(UBSDKUserActivity) public class UserActivity : ObjectiveC.NSObject, Swift.Decodable {
+  @objc public var status: UberRides.RideStatus {
+    get
+  }
+  @nonobjc public var distance: Swift.Double? {
+    get
+  }
+  @objc(distance) public var objc_distance: Foundation.NSNumber? {
+    @objc get
+  }
+  @objc public var requestTime: Foundation.Date? {
+    get
+  }
+  @objc public var startTime: Foundation.Date? {
+    get
+  }
+  @objc public var endTime: Foundation.Date? {
+    get
+  }
+  @objc public var startCity: UberRides.TripCity? {
+    get
+  }
+  @objc public var requestID: Swift.String? {
+    get
+  }
+  @objc public var productID: Swift.String? {
+    get
+  }
+  required public init(from decoder: Swift.Decoder) throws
+  @objc deinit
+  @objc override dynamic public init()
+}
+@objc(UBSDKTripCity) public class TripCity : ObjectiveC.NSObject, Swift.Decodable {
+  @nonobjc public var latitude: Swift.Double? {
+    get
+  }
+  @objc(latitude) public var objc_latitude: Foundation.NSNumber? {
+    @objc get
+  }
+  @nonobjc public var longitude: Swift.Double? {
+    get
+  }
+  @objc(longitude) public var objc_longitude: Foundation.NSNumber? {
+    @objc get
+  }
+  @objc public var location: CoreLocation.CLLocation? {
+    get
+  }
+  @objc public var name: Swift.String? {
+    get
+  }
+  required public init(from decoder: Swift.Decoder) throws
+  @objc deinit
+  @objc override dynamic public init()
+}
+@objc(UBSDKPaymentMethod) public class PaymentMethod : ObjectiveC.NSObject, Swift.Codable {
+  @objc public var paymentDescription: Swift.String? {
+    get
+  }
+  @objc public var methodID: Swift.String? {
+    get
+  }
+  @objc public var type: Swift.String? {
+    get
+  }
+  required public init(from decoder: Swift.Decoder) throws
+  @objc deinit
+  @objc override dynamic public init()
+  public func encode(to encoder: Swift.Encoder) throws
+}
+@objc(UBSDKRideStatus) public enum RideStatus : Swift.Int, Swift.Codable {
+  case accepted
+  case arriving
+  case completed
+  case driverCanceled
+  case inProgress
+  case noDriversAvailable
+  case processing
+  case riderCanceled
+  case unknown
+  public init(from decoder: Swift.Decoder) throws
+  public typealias RawValue = Swift.Int
+  public init?(rawValue: Swift.Int)
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc(UBSDKRequestDeeplink) @_objcRuntimeName(UBSDKRequestDeeplink) public class RequestDeeplink : UberCore.BaseDeeplink {
+  @objc convenience public init(rideParameters: UberRides.RideParameters = RideParametersBuilder().build())
+  @objc public init(rideParameters: UberRides.RideParameters, fallbackType: UberCore.DeeplinkFallbackType)
+  @objc override public var fallbackURLs: [Foundation.URL] {
+    @objc get
+  }
+  @objc deinit
+  @objc override public init?(scheme: Swift.String, host: Swift.String, path: Swift.String, queryItems: [Foundation.URLQueryItem]?)
+}
+@objc(UBSDKRide) public class Ride : ObjectiveC.NSObject, Swift.Decodable {
+  @objc public var destination: UberRides.RideRequestLocation? {
+    get
+  }
+  @objc public var driver: UberRides.Driver? {
+    get
+  }
+  @objc public var driverLocation: UberRides.RideRequestLocation? {
+    get
+  }
+  @objc public var pickup: UberRides.RideRequestLocation? {
+    get
+  }
+  @objc public var requestID: Swift.String? {
+    get
+  }
+  @objc public var productID: Swift.String? {
+    get
+  }
+  @objc public var status: UberRides.RideStatus {
+    get
+  }
+  @nonobjc public var surgeMultiplier: Swift.Double? {
+    get
+  }
+  @objc(surgeMultiplier) public var objc_surgeMultiplier: Foundation.NSNumber? {
+    @objc get
+  }
+  @objc public var vehicle: UberRides.Vehicle? {
+    get
+  }
+  @nonobjc public var isShared: Swift.Bool? {
+    get
+  }
+  @objc(isShared) public var objc_isShared: Foundation.NSNumber? {
+    @objc get
+  }
+  required public init(from decoder: Swift.Decoder) throws
+  @objc deinit
+  @objc override dynamic public init()
+}
+@objc(UBSDKDistanceEstimate) public class DistanceEstimate : ObjectiveC.NSObject, Swift.Codable {
+  @nonobjc public var distance: Swift.Double? {
+    get
+  }
+  @objc(distance) public var objc_distance: Foundation.NSNumber? {
+    @objc get
+  }
+  @objc public var distanceUnit: Swift.String? {
+    get
+  }
+  @nonobjc public var duration: Swift.Int? {
+    get
+  }
+  @objc(duration) public var objc_duration: Foundation.NSNumber? {
+    @objc get
+  }
+  required public init(from decoder: Swift.Decoder) throws
+  @objc deinit
+  @objc override dynamic public init()
+  public func encode(to encoder: Swift.Encoder) throws
+}
+@objc(UBSDKRideRequestLocation) public class RideRequestLocation : ObjectiveC.NSObject, Swift.Codable {
+  @objc public var alias: Swift.String? {
+    get
+  }
+  @objc public var name: Swift.String? {
+    get
+  }
+  @nonobjc public var bearing: Swift.Int? {
+    get
+  }
+  @objc(bearing) public var objc_bearing: Foundation.NSNumber? {
+    @objc get
+  }
+  @nonobjc public var eta: Swift.Int? {
+    get
+  }
+  @objc(eta) public var objc_eta: Foundation.NSNumber? {
+    @objc get
+  }
+  @nonobjc public var latitude: Swift.Double? {
+    get
+  }
+  @objc(latitude) public var objc_latitude: Foundation.NSNumber? {
+    @objc get
+  }
+  @nonobjc public var longitude: Swift.Double? {
+    get
+  }
+  @objc(longitude) public var objc_longitude: Foundation.NSNumber? {
+    @objc get
+  }
+  required public init(from decoder: Swift.Decoder) throws
+  @objc deinit
+  @objc override dynamic public init()
+  public func encode(to encoder: Swift.Encoder) throws
+}
+@objc(UBSDKRideMap) public class RideMap : ObjectiveC.NSObject, Swift.Codable {
+  @objc public var path: Foundation.URL? {
+    get
+  }
+  @objc public var requestID: Swift.String? {
+    get
+  }
+  required public init(from decoder: Swift.Decoder) throws
+  @objc deinit
+  @objc override dynamic public init()
+  public func encode(to encoder: Swift.Encoder) throws
+}
+@objc(UBSDKRideCharge) public class RideCharge : ObjectiveC.NSObject, Swift.Codable {
+  @nonobjc public var amount: Swift.Double? {
+    get
+  }
+  @objc(amount) public var objc_amount: Foundation.NSNumber? {
+    @objc get
+  }
+  @objc public var name: Swift.String? {
+    get
+  }
+  @objc public var type: Swift.String? {
+    get
+  }
+  required public init(from decoder: Swift.Decoder) throws
+  @objc deinit
+  @objc override dynamic public init()
+  public func encode(to encoder: Swift.Encoder) throws
+}
+@objc(UBSDKRideRequestViewControllerDelegate) public protocol RideRequestViewControllerDelegate {
+  @objc func rideRequestViewController(_ rideRequestViewController: UberRides.RideRequestViewController, didReceiveError error: Foundation.NSError)
+}
+@objc(UBSDKRideRequestViewController) public class RideRequestViewController : UIKit.UIViewController {
+  @objc public var delegate: UberRides.RideRequestViewControllerDelegate?
+  @objc public var loginManager: UberCore.LoginManager
+  @objc required dynamic public init?(coder aDecoder: Foundation.NSCoder)
+  @objc public init(rideParameters: UberRides.RideParameters, loginManager: UberCore.LoginManager)
+  @objc override dynamic public func viewDidLoad()
+  @objc override dynamic public func viewDidAppear(_ animated: Swift.Bool)
+  @objc override dynamic public func viewWillDisappear(_ animated: Swift.Bool)
+  @objc override dynamic public var supportedInterfaceOrientations: UIKit.UIInterfaceOrientationMask {
+    @objc get
+  }
+  @objc deinit
+  @objc override dynamic public init(nibName nibNameOrNil: Swift.String?, bundle nibBundleOrNil: Foundation.Bundle?)
+}
+extension RideRequestViewController : UberRides.RideRequestViewDelegate {
+  @objc dynamic public func rideRequestView(_ rideRequestView: UberRides.RideRequestView, didReceiveError error: Foundation.NSError)
+}
+@objc(UBSDKUpfrontFare) public class UpfrontFare : ObjectiveC.NSObject, Swift.Codable {
+  @objc public var fareID: Swift.String? {
+    get
+  }
+  @nonobjc public var value: Swift.Double? {
+    get
+  }
+  @objc(value) public var objc_value: Foundation.NSNumber? {
+    @objc get
+  }
+  @objc public var currencyCode: Swift.String? {
+    get
+  }
+  @objc public var display: Swift.String? {
+    get
+  }
+  @objc public var expiresAt: Foundation.Date? {
+    get
+  }
+  @objc public var breakdown: [UberRides.UpfrontFareComponent]? {
+    get
+  }
+  required public init(from decoder: Swift.Decoder) throws
+  @objc deinit
+  @objc override dynamic public init()
+  public func encode(to encoder: Swift.Encoder) throws
+}
+@objc(UBSDKUpfrontFareComponent) public class UpfrontFareComponent : ObjectiveC.NSObject, Swift.Codable {
+  @objc public var type: UberRides.UpfrontFareComponentType {
+    get
+  }
+  @nonobjc public var value: Swift.Double? {
+    get
+  }
+  @objc(value) public var objc_value: Foundation.NSNumber? {
+    @objc get
+  }
+  @objc public var name: Swift.String? {
+    get
+  }
+  required public init(from decoder: Swift.Decoder) throws
+  @objc deinit
+  @objc override dynamic public init()
+  public func encode(to encoder: Swift.Encoder) throws
+}
+@objc(UBSDKUpfrontFareComponentType) public enum UpfrontFareComponentType : Swift.Int, Swift.Codable {
+  case baseFare
+  case promotion
+  case unknown
+  public init(from decoder: Swift.Decoder) throws
+  public typealias RawValue = Swift.Int
+  public init?(rawValue: Swift.Int)
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc(UBSDKPlace) public class Place : ObjectiveC.NSObject, Swift.Codable {
+  @objc public static let home: Swift.String
+  @objc public static let work: Swift.String
+  @objc public var address: Swift.String? {
+    get
+  }
+  required public init(from decoder: Swift.Decoder) throws
+  @objc deinit
+  @objc override dynamic public init()
+  public func encode(to encoder: Swift.Encoder) throws
+}
+@objc(UBSDKProduct) public class Product : ObjectiveC.NSObject, Swift.Codable {
+  @objc public var productID: Swift.String? {
+    get
+  }
+  @objc public var name: Swift.String? {
+    get
+  }
+  @objc public var productDescription: Swift.String? {
+    get
+  }
+  @nonobjc public var capacity: Swift.Int? {
+    get
+  }
+  @objc public var objc_capacity: Foundation.NSNumber? {
+    @objc get
+  }
+  @objc public var imageURL: Foundation.URL? {
+    get
+  }
+  @objc public var priceDetails: UberRides.PriceDetails? {
+    get
+  }
+  @nonobjc public var upfrontFareEnabled: Swift.Bool? {
+    get
+  }
+  @objc public var objc_upfrontFareEnabled: Foundation.NSNumber? {
+    @objc get
+  }
+  @nonobjc public var cashEnabled: Swift.Bool? {
+    get
+  }
+  @objc public var objc_cashEnabled: Foundation.NSNumber? {
+    @objc get
+  }
+  @nonobjc public var isShared: Swift.Bool? {
+    get
+  }
+  @objc public var objc_isShared: Foundation.NSNumber? {
+    @objc get
+  }
+  @objc public var productGroup: UberRides.ProductGroup {
+    get
+  }
+  required public init(from decoder: Swift.Decoder) throws
+  @objc deinit
+  @objc override dynamic public init()
+  public func encode(to encoder: Swift.Encoder) throws
+}
+@objc(UBSDKPriceDetails) public class PriceDetails : ObjectiveC.NSObject, Swift.Codable {
+  @objc public var distanceUnit: Swift.String? {
+    get
+  }
+  @objc public var currencyCode: Swift.String? {
+    get
+  }
+  @nonobjc public var costPerMinute: Swift.Double? {
+    get
+  }
+  @objc(costPerMinute) public var objc_costPerMinute: Foundation.NSNumber? {
+    @objc get
+  }
+  @nonobjc public var costPerDistance: Swift.Double? {
+    get
+  }
+  @objc(costPerDistance) public var objc_costPerDistance: Foundation.NSNumber? {
+    @objc get
+  }
+  @nonobjc public var baseFee: Swift.Double? {
+    get
+  }
+  @objc(baseFee) public var objc_baseFee: Foundation.NSNumber? {
+    @objc get
+  }
+  @nonobjc public var minimumFee: Swift.Double? {
+    get
+  }
+  @objc(minimumFee) public var objc_minimumFee: Foundation.NSNumber? {
+    @objc get
+  }
+  @nonobjc public var cancellationFee: Swift.Double? {
+    get
+  }
+  @objc(cancellationFee) public var objc_cancellationFee: Foundation.NSNumber? {
+    @objc get
+  }
+  @objc public var serviceFees: [UberRides.ServiceFee]? {
+    get
+  }
+  required public init(from decoder: Swift.Decoder) throws
+  @objc deinit
+  @objc override dynamic public init()
+  public func encode(to encoder: Swift.Encoder) throws
+}
+@objc(UBSDKServiceFee) public class ServiceFee : ObjectiveC.NSObject, Swift.Codable {
+  @objc public var name: Swift.String? {
+    get
+  }
+  @nonobjc public var fee: Swift.Double? {
+    get
+  }
+  @objc(fee) public var objc_fee: Foundation.NSNumber? {
+    @objc get
+  }
+  required public init(from decoder: Swift.Decoder) throws
+  @objc deinit
+  @objc override dynamic public init()
+  public func encode(to encoder: Swift.Encoder) throws
+}
+@objc(UBSDKProductGroup) public enum ProductGroup : Swift.Int, Swift.Codable {
+  case rideshare
+  case uberX
+  case uberXL
+  case uberBlack
+  case suv
+  case taxi
+  case unknown
+  public init(from decoder: Swift.Decoder) throws
+  public typealias RawValue = Swift.Int
+  public init?(rawValue: Swift.Int)
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@_inheritsConvenienceInitializers @objc(UBSDKRidesClient) public class RidesClient : ObjectiveC.NSObject {
+  @objc public init(accessTokenIdentifier: Swift.String, sessionConfiguration: Foundation.URLSessionConfiguration, keychainAccessGroup: Swift.String)
+  @objc convenience public init(accessTokenIdentifier: Swift.String, keychainAccessGroup: Swift.String)
+  @objc convenience public init(accessTokenIdentifier: Swift.String, sessionConfiguration: Foundation.URLSessionConfiguration)
+  @objc convenience public init(accessTokenIdentifier: Swift.String)
+  @objc convenience override dynamic public init()
+  @objc public func fetchAccessToken() -> UberCore.AccessToken?
+  @objc public var hasServerToken: Swift.Bool {
+    @objc get
+  }
+  @objc public func fetchProducts(pickupLocation location: CoreLocation.CLLocation, completion: @escaping ([UberRides.Product], UberCore.Response) -> Swift.Void)
+  @objc public func fetchProduct(productID: Swift.String, completion: @escaping (UberRides.Product?, UberCore.Response) -> Swift.Void)
+  @objc public func fetchTimeEstimates(pickupLocation location: CoreLocation.CLLocation, productID: Swift.String? = nil, completion: @escaping ([UberRides.TimeEstimate], UberCore.Response) -> Swift.Void)
+  @objc public func fetchPriceEstimates(pickupLocation: CoreLocation.CLLocation, dropoffLocation: CoreLocation.CLLocation, completion: @escaping ([UberRides.PriceEstimate], UberCore.Response) -> Swift.Void)
+  @objc public func fetchTripHistory(offset: Swift.Int = 0, limit: Swift.Int = 5, completion: @escaping (UberRides.TripHistory?, UberCore.Response) -> Swift.Void)
+  @objc public func fetchUserProfile(completion: @escaping (UberRides.UserProfile?, UberCore.Response) -> Swift.Void)
+  @objc public func requestRide(parameters: UberRides.RideParameters, completion: @escaping (UberRides.Ride?, UberCore.Response) -> Swift.Void)
+  @objc public func fetchCurrentRide(completion: @escaping (UberRides.Ride?, UberCore.Response) -> Swift.Void)
+  @objc public func fetchRideDetails(requestID: Swift.String, completion: @escaping (UberRides.Ride?, UberCore.Response) -> Swift.Void)
+  @objc public func fetchRideRequestEstimate(parameters: UberRides.RideParameters, completion: @escaping (UberRides.RideEstimate?, UberCore.Response) -> Swift.Void)
+  @objc public func fetchPaymentMethods(completion: @escaping ([UberRides.PaymentMethod], UberRides.PaymentMethod?, UberCore.Response) -> Swift.Void)
+  @objc public func fetchPlace(placeID: Swift.String, completion: @escaping (UberRides.Place?, UberCore.Response) -> Swift.Void)
+  @objc public func updatePlace(placeID: Swift.String, withAddress address: Swift.String, completion: @escaping (UberRides.Place?, UberCore.Response) -> Swift.Void)
+  @objc public func updateRideDetails(requestID: Swift.String?, rideParameters: UberRides.RideParameters, completion: @escaping (UberCore.Response) -> Swift.Void)
+  @objc public func updateCurrentRide(rideParameters: UberRides.RideParameters, completion: @escaping (UberCore.Response) -> Swift.Void)
+  @objc public func cancelRide(requestID: Swift.String?, completion: @escaping (UberCore.Response) -> Swift.Void)
+  @objc public func cancelCurrentRide(completion: @escaping (UberCore.Response) -> Swift.Void)
+  @objc public func fetchRideReceipt(requestID: Swift.String, completion: @escaping (UberRides.RideReceipt?, UberCore.Response) -> Swift.Void)
+  @objc public func fetchRideMap(requestID: Swift.String, completion: @escaping (UberRides.RideMap?, UberCore.Response) -> Swift.Void)
+  @objc public func refreshAccessToken(usingRefreshToken refreshToken: Swift.String, completion: @escaping (UberCore.AccessToken?, UberCore.Response) -> Swift.Void)
+  @objc deinit
+}
+@objc public enum RideRequestViewErrorType : Swift.Int {
+  case accessTokenExpired
+  case accessTokenMissing
+  case invalidRequest
+  case networkError
+  case notSupported
+  case unknown
+  public typealias RawValue = Swift.Int
+  public init?(rawValue: Swift.Int)
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@_hasMissingDesignatedInitializers @objc(UBSDKRideParameters) public class RideParameters : ObjectiveC.NSObject {
+  @objc final public let productID: Swift.String?
+  @objc final public let pickupLocation: CoreLocation.CLLocation?
+  @objc final public let pickupNickname: Swift.String?
+  @objc final public let pickupAddress: Swift.String?
+  @objc final public let pickupPlaceID: Swift.String?
+  @objc final public let dropoffLocation: CoreLocation.CLLocation?
+  @objc final public let dropoffNickname: Swift.String?
+  @objc final public let dropoffAddress: Swift.String?
+  @objc final public let dropoffPlaceID: Swift.String?
+  @objc final public let paymentMethod: Swift.String?
+  @objc final public let surgeConfirmationID: Swift.String?
+  @objc final public let upfrontFare: UberRides.UpfrontFare?
+  @objc public func builder() -> UberRides.RideParametersBuilder
+  @objc deinit
+  @objc override dynamic public init()
+}
+@_inheritsConvenienceInitializers @objc(UBSDKRideParametersBuilder) public class RideParametersBuilder : ObjectiveC.NSObject {
+  @objc public var productID: Swift.String?
+  @objc public var pickupLocation: CoreLocation.CLLocation?
+  @objc public var pickupNickname: Swift.String?
+  @objc public var pickupAddress: Swift.String?
+  @objc public var pickupPlaceID: Swift.String?
+  @objc public var dropoffLocation: CoreLocation.CLLocation?
+  @objc public var dropoffNickname: Swift.String?
+  @objc public var dropoffAddress: Swift.String?
+  @objc public var dropoffPlaceID: Swift.String?
+  @objc public var paymentMethod: Swift.String?
+  @objc public var surgeConfirmationID: Swift.String?
+  @objc public var upfrontFare: UberRides.UpfrontFare?
+  @objc public func build() -> UberRides.RideParameters
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc(UBSDKDriver) public class Driver : ObjectiveC.NSObject, Swift.Codable {
+  @objc public var name: Swift.String? {
+    get
+  }
+  @objc public var pictureURL: Foundation.URL? {
+    get
+  }
+  @objc public var phoneNumber: Swift.String? {
+    get
+  }
+  @objc public var smsNumber: Swift.String? {
+    get
+  }
+  @nonobjc public var rating: Swift.Double? {
+    get
+  }
+  @objc(rating) public var objc_rating: Foundation.NSNumber? {
+    @objc get
+  }
+  required public init(from decoder: Swift.Decoder) throws
+  @objc deinit
+  @objc override dynamic public init()
+  public func encode(to encoder: Swift.Encoder) throws
+}
+@objc(UBSDKModalRideRequestViewController) public class ModalRideRequestViewController : UberRides.ModalViewController {
+  @objc public var rideRequestViewController: UberRides.RideRequestViewController {
+    get
+  }
+  @objc public init(rideRequestViewController: UberRides.RideRequestViewController)
+  @objc required dynamic public init?(coder aDecoder: Foundation.NSCoder)
+  @objc override dynamic public var supportedInterfaceOrientations: UIKit.UIInterfaceOrientationMask {
+    @objc get
+  }
+  @objc deinit
+  @objc override public init(childViewController: UIKit.UIViewController, buttonStyle: UberRides.ModalViewControllerButtonStyle)
+}
+extension ModalRideRequestViewController : UberRides.RideRequestViewControllerDelegate {
+  @objc dynamic public func rideRequestViewController(_ rideRequestViewController: UberRides.RideRequestViewController, didReceiveError error: Foundation.NSError)
+}
+@objc(UBSDKRideEstimate) public class RideEstimate : ObjectiveC.NSObject, Swift.Codable {
+  @objc public var priceEstimate: UberRides.PriceEstimate? {
+    get
+  }
+  @objc public var distanceEstimate: UberRides.DistanceEstimate? {
+    get
+  }
+  @nonobjc public var pickupEstimate: Swift.Int? {
+    get
+  }
+  @objc(pickupEstimate) public var objc_pickupEstimate: Foundation.NSNumber? {
+    @objc get
+  }
+  @objc public var fare: UberRides.UpfrontFare? {
+    get
+  }
+  required public init(from decoder: Swift.Decoder) throws
+  @objc deinit
+  @objc override dynamic public init()
+  public func encode(to encoder: Swift.Encoder) throws
+}
+@objc(UBSDKRideRequestViewRequestingBehavior) public class RideRequestViewRequestingBehavior : ObjectiveC.NSObject {
+  @objc unowned public var presentingViewController: UIKit.UIViewController
+  @objc public var loginManager: UberCore.LoginManager {
+    @objc get
+    @objc set
+  }
+  @objc public var modalRideRequestViewController: UberRides.ModalRideRequestViewController {
+    get
+  }
+  @objc public init(presentingViewController: UIKit.UIViewController, loginManager: UberCore.LoginManager)
+  @objc convenience public init(presentingViewController: UIKit.UIViewController)
+  @objc deinit
+  @objc override dynamic public init()
+}
+extension RideRequestViewRequestingBehavior : UberRides.RideRequesting {
+  @objc dynamic public func requestRide(parameters rideParameters: UberRides.RideParameters?)
+}
+@objc(UBSDKVehicle) public class Vehicle : ObjectiveC.NSObject, Swift.Codable {
+  @objc public var licensePlate: Swift.String? {
+    get
+  }
+  @objc public var make: Swift.String? {
+    get
+  }
+  @objc public var model: Swift.String? {
+    get
+  }
+  @objc public var pictureURL: Foundation.URL? {
+    get
+  }
+  required public init(from decoder: Swift.Decoder) throws
+  @objc deinit
+  @objc override dynamic public init()
+  public func encode(to encoder: Swift.Encoder) throws
+}
+@objc public enum ModalViewControllerButtonStyle : Swift.Int {
+  case empty
+  case doneButton
+  case backButton
+  public typealias RawValue = Swift.Int
+  public init?(rawValue: Swift.Int)
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc public enum ModalViewControllerColorStyle : Swift.Int {
+  case `default`
+  case light
+  public typealias RawValue = Swift.Int
+  public init?(rawValue: Swift.Int)
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc(UBSDKModalViewControllerDelegate) public protocol ModalViewControllerDelegate {
+  @objc func modalViewControllerWillDismiss(_ modalViewController: UberRides.ModalViewController)
+  @objc func modalViewControllerDidDismiss(_ modalViewController: UberRides.ModalViewController)
+}
+@objc(UBSDKModalViewController) public class ModalViewController : UIKit.UIViewController {
+  @objc public var delegate: UberRides.ModalViewControllerDelegate?
+  @objc public var colorStyle: UberRides.ModalViewControllerColorStyle {
+    @objc get
+    @objc set
+  }
+  @objc public init(childViewController: UIKit.UIViewController, buttonStyle: UberRides.ModalViewControllerButtonStyle)
+  @objc convenience public init(childViewController: UIKit.UIViewController)
+  @objc required dynamic public init?(coder aDecoder: Foundation.NSCoder)
+  @objc override dynamic public func viewDidLoad()
+  @objc override dynamic public func viewDidDisappear(_ animated: Swift.Bool)
+  @objc public func dismiss()
+  @objc override dynamic public var preferredStatusBarStyle: UIKit.UIStatusBarStyle {
+    @objc get
+  }
+  @objc override dynamic public init(nibName nibNameOrNil: Swift.String?, bundle nibBundleOrNil: Foundation.Bundle?)
+  @objc deinit
+}
+@objc(UBSDKRideRequesting) public protocol RideRequesting {
+  @objc func requestRide(parameters: UberRides.RideParameters?)
+}
+@objc(UBSDKRideReceipt) public class RideReceipt : ObjectiveC.NSObject, Swift.Codable {
+  @objc public var chargeAdjustments: [UberRides.RideCharge]? {
+    get
+  }
+  @objc public var currencyCode: Swift.String? {
+    get
+  }
+  @objc public var distance: Swift.String? {
+    get
+  }
+  @objc public var distanceLabel: Swift.String? {
+    get
+  }
+  @objc public var duration: Foundation.DateComponents? {
+    get
+  }
+  @objc public var requestID: Swift.String? {
+    get
+  }
+  @objc public var subtotal: Swift.String? {
+    get
+  }
+  @objc public var totalCharged: Swift.String? {
+    get
+  }
+  @nonobjc public var totalOwed: Swift.Double? {
+    get
+  }
+  @objc(totalOwed) public var objc_totalOwed: Foundation.NSNumber? {
+    @objc get
+  }
+  @objc public var totalFare: Swift.String? {
+    get
+  }
+  required public init(from decoder: Swift.Decoder) throws
+  @objc deinit
+  @objc override dynamic public init()
+  public func encode(to encoder: Swift.Encoder) throws
+}
+public protocol RideRequestButtonDelegate {
+  func rideRequestButtonDidLoadRideInformation(_ button: UberRides.RideRequestButton)
+  func rideRequestButton(_ button: UberRides.RideRequestButton, didReceiveError error: UberCore.UberError)
+}
+public class RideRequestButton : UberCore.UberButton {
+  public var delegate: UberRides.RideRequestButtonDelegate?
+  public var rideParameters: UberRides.RideParameters
+  public var requestBehavior: UberRides.RideRequesting
+  public var client: UberRides.RidesClient?
+  @objc required dynamic public init?(coder aDecoder: Foundation.NSCoder)
+  @objc public init(client: UberRides.RidesClient, rideParameters: UberRides.RideParameters, requestingBehavior: UberRides.RideRequesting)
+  @objc convenience public init(rideParameters: UberRides.RideParameters, requestingBehavior: UberRides.RideRequesting)
+  @objc convenience public init(client: UberRides.RidesClient)
+  @objc convenience public init(rideParameters: UberRides.RideParameters)
+  @objc convenience public init(requestingBehavior: UberRides.RideRequesting)
+  @objc convenience dynamic public init()
+  @objc override public func setup()
+  @objc override public func addSubviews()
+  @objc override public func setContent()
+  @objc override public func setConstraints()
+  override open func colorStyleDidUpdate(_ style: UberCore.UberButtonColorStyle)
+  @objc override dynamic public func sizeThatFits(_ size: CoreGraphics.CGSize) -> CoreGraphics.CGSize
+  @objc public func loadRideInformation()
+  @objc deinit
+  @objc override dynamic public init(frame: CoreGraphics.CGRect)
+}
+@objc(UBSDKRideRequestViewDelegate) public protocol RideRequestViewDelegate {
+  @objc func rideRequestView(_ rideRequestView: UberRides.RideRequestView, didReceiveError error: Foundation.NSError)
+}
+@_inheritsConvenienceInitializers @objc(UBSDKRideRequestView) public class RideRequestView : UIKit.UIView {
+  @objc public var delegate: UberRides.RideRequestViewDelegate?
+  @objc public var accessToken: UberCore.AccessToken?
+  @objc public var rideParameters: UberRides.RideParameters
+  @objc required public init(rideParameters: UberRides.RideParameters, accessToken: UberCore.AccessToken?, frame: CoreGraphics.CGRect)
+  @objc convenience public init(rideParameters: UberRides.RideParameters, frame: CoreGraphics.CGRect)
+  @objc convenience public init(rideParameters: UberRides.RideParameters)
+  @objc convenience override dynamic public init(frame: CoreGraphics.CGRect)
+  @objc convenience dynamic public init()
+  @objc required dynamic public init?(coder aDecoder: Foundation.NSCoder)
+  @objc deinit
+  @objc public func load()
+  @objc public func cancelLoad()
+}
+extension RideRequestView : WebKit.WKNavigationDelegate {
+  @objc dynamic public func webView(_ webView: WebKit.WKWebView, decidePolicyFor navigationAction: WebKit.WKNavigationAction, decisionHandler: @escaping (WebKit.WKNavigationActionPolicy) -> Swift.Void)
+  @objc dynamic public func webView(_ webView: WebKit.WKWebView, didFail navigation: WebKit.WKNavigation!, withError error: Swift.Error)
+  @objc dynamic public func webView(_ webView: WebKit.WKWebView, didFailProvisionalNavigation navigation: WebKit.WKNavigation!, withError error: Swift.Error)
+}
+extension RideRequestView : UIKit.UIScrollViewDelegate {
+  @objc dynamic public func scrollViewDidScroll(_ scrollView: UIKit.UIScrollView)
+}
+@objc(UBSDKTimeEstimate) public class TimeEstimate : ObjectiveC.NSObject, Swift.Codable {
+  @objc public var productID: Swift.String? {
+    get
+  }
+  @objc public var name: Swift.String? {
+    get
+  }
+  @nonobjc public var estimate: Swift.Int? {
+    get
+  }
+  @objc(estimate) public var objc_estimate: Foundation.NSNumber? {
+    @objc get
+  }
+  required public init(from decoder: Swift.Decoder) throws
+  @objc deinit
+  @objc override dynamic public init()
+  public func encode(to encoder: Swift.Encoder) throws
+}
+@_inheritsConvenienceInitializers @objc(UBSDKDeeplinkRequestingBehavior) public class DeeplinkRequestingBehavior : ObjectiveC.NSObject, UberRides.RideRequesting {
+  @objc public init(fallbackType: UberCore.DeeplinkFallbackType)
+  @objc override dynamic public init()
+  @objc public func requestRide(parameters rideParameters: UberRides.RideParameters?)
+  @objc deinit
+}
+@objc(UBSDKUserProfile) public class UserProfile : ObjectiveC.NSObject, Swift.Codable {
+  @objc public var firstName: Swift.String? {
+    get
+  }
+  @objc public var lastName: Swift.String? {
+    get
+  }
+  @objc public var email: Swift.String? {
+    get
+  }
+  @objc public var picturePath: Swift.String? {
+    get
+  }
+  @objc public var promoCode: Swift.String? {
+    get
+  }
+  @available(*, deprecated, message: "use riderID instead")
+  @objc public var UUID: Swift.String? {
+    @objc get
+  }
+  @objc public var riderID: Swift.String? {
+    get
+  }
+  required public init(from decoder: Swift.Decoder) throws
+  @objc deinit
+  @objc override dynamic public init()
+  public func encode(to encoder: Swift.Encoder) throws
+}
+extension UberRides.RideStatus : Swift.Equatable {}
+extension UberRides.RideStatus : Swift.Hashable {}
+extension UberRides.RideStatus : Swift.RawRepresentable {}
+extension UberRides.UpfrontFareComponentType : Swift.Equatable {}
+extension UberRides.UpfrontFareComponentType : Swift.Hashable {}
+extension UberRides.UpfrontFareComponentType : Swift.RawRepresentable {}
+extension UberRides.ProductGroup : Swift.Equatable {}
+extension UberRides.ProductGroup : Swift.Hashable {}
+extension UberRides.ProductGroup : Swift.RawRepresentable {}
+extension UberRides.RideRequestViewErrorType : Swift.Equatable {}
+extension UberRides.RideRequestViewErrorType : Swift.Hashable {}
+extension UberRides.RideRequestViewErrorType : Swift.RawRepresentable {}
+extension UberRides.ModalViewControllerButtonStyle : Swift.Equatable {}
+extension UberRides.ModalViewControllerButtonStyle : Swift.Hashable {}
+extension UberRides.ModalViewControllerButtonStyle : Swift.RawRepresentable {}
+extension UberRides.ModalViewControllerColorStyle : Swift.Equatable {}
+extension UberRides.ModalViewControllerColorStyle : Swift.Hashable {}
+extension UberRides.ModalViewControllerColorStyle : Swift.RawRepresentable {}
