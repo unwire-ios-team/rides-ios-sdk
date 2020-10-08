@@ -29,13 +29,13 @@ import UberCore
 /**
  *  Protocol to listen to request button events, such as loading button content
  */
-@objc(UBSDKRideRequestButtonDelegate) public protocol RideRequestButtonDelegate {
+public protocol RideRequestButtonDelegate {
     /**
      The button finished loading ride information successfully.
      
      - parameter button: the RideRequestButton
      */
-    @objc func rideRequestButtonDidLoadRideInformation(_ button: RideRequestButton)
+    func rideRequestButtonDidLoadRideInformation(_ button: RideRequestButton)
     
     /**
      The button encountered an error when refreshing its metadata content.
@@ -43,22 +43,23 @@ import UberCore
      - parameter button: the RideRequestButton
      - parameter error:  the error that it encountered
      */
-    @objc func rideRequestButton(_ button: RideRequestButton, didReceiveError error: UberError)
+    func rideRequestButton(_ button: RideRequestButton, didReceiveError error: UberError)
 }
 
 /// RequestButton implements a button on the touch screen to request a ride.
-@objc(UBSDKRideRequestButton) public class RideRequestButton: UberButton {
+
+public class RideRequestButton: UberButton {
     /// Delegate is informed of events that occur with request button.
-    @objc public var delegate: RideRequestButtonDelegate?
+    public var delegate: RideRequestButtonDelegate?
     
     /// The RideParameters object this button will use to make a request
-    @objc public var rideParameters: RideParameters
+    public var rideParameters: RideParameters
     
     /// The RideRequesting object the button will use to make a request
-    @objc public var requestBehavior: RideRequesting
+    public var requestBehavior: RideRequesting
     
     /// The RidesClient used for retrieving metadata for the button.
-    @objc public var client: RidesClient?
+    public var client: RidesClient?
     
     static let sourceString = "button"
     

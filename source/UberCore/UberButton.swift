@@ -25,7 +25,8 @@
 import UIKit
 
 /// Base class for Uber buttons that sets up colors and some constraints.
-@objc(UBSDKUberButton) open class UberButton: UIButton {
+@objc
+open class UberButton: UIButton {
     public let cornerRadius: CGFloat = 8
     public let horizontalEdgePadding: CGFloat = 16
     public let imageLabelPadding: CGFloat = 8
